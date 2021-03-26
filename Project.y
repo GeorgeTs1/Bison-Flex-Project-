@@ -1,21 +1,26 @@
 %{
 #include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
 
 int yylex();
 int yyerror(char *s);
+void yyerror2(int type, char *s, char b[]);
+extern int linenum;
 
-char get_prog_name(char prog[]);
 
 char prog_name[200];
 char func_name[200];
+char space[1] = {" "};
 
 %}
 
 %token PROGRAM STRING NEW_LINE FUNCTION F_PARAMETERS F_DECLARATIONS
 %token RETURN VARS END_FUNCTION STARTMAIN ASSIGNMENT WHILE_COMMAND
 %token END_WHILE FOR_COMMAND END_FOR IF_COMMAND ELSEIF_COMMAND ELSE
-%token ENDIF SWITCH_COMMAND CASE_cOMMAND DEFAULT ENDSWITCH
+%token ENDIF SWITCH_COMMAND CASE_COMMAND DEFAULT ENDSWITCH
 %token PRINT_COMMAND BREAK_COMMAND ENDMAIN OTHER
+
 
 
 %type <prog_name>    STRING
@@ -54,19 +59,26 @@ prog:
 
 main:
 
-
+    program 
+;
 
 program:
 
-     PROGRAM + NEW_LINE
+     PROGRAM STRING NEW_LINE
 		{
-			strcpy(prog_name,$1);
+			printf("RIGHT INPUT");
+			strcpy(prog_name,$2);
 		}
-	
+	| OTHER
+		{
 
-function:
-
-     FUNCTION + f_parameters 
+			yyerror2(1,"EXIT",space);		
+		}
+	|       
+                {
+			yyerror2(1,"Program should start with PROGRAM program_name",space);
+		}
+;	
 
 
 
@@ -78,8 +90,32 @@ int yyerror(char *s)
 	return 0;
 }
 
-	
+void yyerror2(int type, char *s, char b[])
+{
+
+	switch(type){
+		case 1:
+			printf("Syntax Error on line - %d\n%s\n",linenum, s);
+			break;
+		case 2:
+			printf("Lexical Error on line - %d: %s\n",linenum, s);
+			break;
+		case 3:
+			printf("Line - %d: %s%s\n",linenum, s, b);
+			break;
+	}
+
+	exit(0);
+}	
 
 
 int main()
 {
+
+system("clear");
+yyparse();
+
+return 0;
+
+}
+
