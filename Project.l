@@ -36,6 +36,7 @@ break_command      "BREAK;"
 
 %%
 
+
 {"PROGRAM"}         {return(PROGRAM)}
 {name}              {return(STRING)}
 {new_line}          {return(NEW_LINE)}
@@ -60,8 +61,12 @@ break_command      "BREAK;"
 {"DEFAULT"}         {return(DEFAULT)}
 {"ENDSWITCH"}       {return(ENDSWITCH)}
 {print_command}     {return(PRINT_COMMAND)}
-{break_command}	    {return(BREAK_COMMAND)}
+{break_command}	  {return(BREAK_COMMAND)}
 {"ENDMAIN"}         {return(ENDMAIN)}
-
+.                   {show_Error();return(OTHER)}
 
 %%
+
+void showError(){
+    printf("Other input");
+}
