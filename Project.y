@@ -1,3 +1,4 @@
+
 %{
 #include <stdio.h>
 #include<stdlib.h>
@@ -5,13 +6,12 @@
 
 int yylex();
 int yyerror(char *s);
-void yyerror2(int type, char *s, char b[]);
 extern int linenum;
 
-
+char char_assign[150];
+char int_assign[150];
 char prog_name[200];
 char func_name[200];
-char space[1] = {" "};
 
 %}
 
@@ -20,7 +20,6 @@ char space[1] = {" "};
 %token END_WHILE FOR_COMMAND END_FOR IF_COMMAND ELSEIF_COMMAND ELSE
 %token ENDIF SWITCH_COMMAND CASE_COMMAND DEFAULT ENDSWITCH
 %token PRINT_COMMAND BREAK_COMMAND ENDMAIN OTHER RETURN_VAR
-
 
 
 %type <prog_name>    STRING
@@ -59,61 +58,84 @@ prog:
 
 main:
 
-    program 
+    program
 ;
 
 
 program:
-	function
-;
+	PROGRAM STRING NEW_LINE  function STARTMAIN NEW_LINE
+		{
+			printf("\nGj man!!");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE
+		{
+			printf("\nRight input also");
+		} 
+	
+	| 	{
+			printf("\nYou didin't type anything :("); 
+		}	
+	| function
+		
+		{
+			printf("\nProgram should start with PROGRAM prog_name");
+		}
+	
+	|for   
+                {
+			printf("\nI LOVE FOR");
+		}
+		
+	| OTHER	
+		{
+			printf("\nGTPK input");
+		}
+;	
+
+	
+
 
 
 function:
 
-      FUNCTION STRING F_PARAMETERS NEW_LINE F_DECLARATIONS NEW_LINE F_DECLARATIONS NEW_LINE RETURN RETURN_VAR NEW_LINE END_FUNCTION 
+      FUNCTION STRING F_PARAMETERS NEW_LINE F_DECLARATIONS NEW_LINE F_DECLARATIONS NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE  RETURN RETURN_VAR NEW_LINE END_FUNCTION NEW_LINE 
+		{
+					
+		}
+	
+	| FUNCTION STRING F_PARAMETERS NEW_LINE ASSIGNMENT NEW_LINE RETURN RETURN_VAR NEW_LINE END_FUNCTION NEW_LINE
+		
 		{
 			printf("RIGHT INPUT");
-			strcpy(prog_name,$2);
 		}
-	| OTHER
-		{
-
-			yyerror2(1,"EXIT",space);		
+		
+	| 
+		{	
+			printf("\nGTPK input");		
 		}
-	|       
+	|OTHER      
                 {
-			yyerror2(1,"Program should start with PROGRAM program_name",space);
+			printf("\nGTPK input");
 		}
 ;	
 
 
+for:
+	FOR_COMMAND NEW_LINE
+	{
+		printf("\nFOR IS OK SHE WILL LIVE");
+	}
+		
+;
 
 %%
 
 int yyerror(char *s)
 {
-	printf("Syntax Error on line %s\n", s);
+	printf("Syntax Error on line %d\n", linenum);
 	return 0;
 }
-
-void yyerror2(int type, char *s, char b[])
-{
-
-	switch(type){
-		case 1:
-			printf("Syntax Error on line - %d\n%s\n",linenum, s);
-			break;
-		case 2:
-			printf("Lexical Error on line - %d: %s\n",linenum, s);
-			break;
-		case 3:
-			printf("Line - %d: %s%s\n",linenum, s, b);
-			break;
-	}
-
-	exit(0);
-}	
-
+	
 
 int main()
 {
