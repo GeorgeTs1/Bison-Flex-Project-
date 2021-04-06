@@ -6,9 +6,11 @@
 int yylex();
 int yyerror(char *s);
 extern int linenum;
-
-void check_var_names(char* str1,int len1,char* str2,int len2);
-
+static int count_varschar=0;
+static int count_varsint=0;
+void check_var_names(char* str1,char* str2);
+char* c_vars;
+char* i_vars;
 %}
 
 %token PROGRAM STRING NEW_LINE FUNCTION F_PARAMETERS F_DECLARATIONS
@@ -17,7 +19,8 @@ void check_var_names(char* str1,int len1,char* str2,int len2);
 %token ENDIF SWITCH_COMMAND CASE_COMMAND DEFAULT ENDSWITCH
 %token PRINT_COMMAND BREAK_COMMAND ENDMAIN OTHER RETURN_VAR
 %token TAB SPACE VARS_CHAR VARS_INTEGER SEMICOLON STRING2
-%token STRUCT ENDSTRUCT TYPE_STRUCT 
+%token STRUCT ENDSTRUCT TYPE_STRUCT END_T_STRUCT
+%token PLUS MINUS MUL DIV POWER EQUAL	
 
 %type <prog_name>    STRING
 %type <variables>    STRING2
@@ -77,12 +80,12 @@ program:
 			printf("\nProgram should start with PROGRAM prog_name");
 		}
 	
-	|for   
+	|for NEW_LINE   
                 {
 			printf("\nI LOVE FOR");
 		}
 
-	|while
+	|while NEW_LINE
 		{
 			printf("\nI LOVE WHILE ALSO");
 		}
@@ -103,12 +106,28 @@ program:
 		{
 			printf("\nJust testing strings");
 		}
+
+	|assignments
+
+		{
+			printf("\nWorking on assignments");
+
+		}
 	
 	| OTHER	
 		{
 			printf("\nGTPK input");
 		}
-;	
+
+	|declarations_char  NEW_LINE declarations_int 
+		{
+			check_var_names(c_vars,i_vars);
+		}
+		
+
+;		
+
+		
 
 	
 
@@ -197,6 +216,32 @@ for:
 	| FOR_COMMAND NEW_LINE TAB ASSIGNMENT NEW_LINE TAB ASSIGNMENT NEW_LINE NEW_LINE TAB while NEW_LINE NEW_LINE TAB END_FOR
 
 	| FOR_COMMAND NEW_LINE TAB ASSIGNMENT NEW_LINE TAB ASSIGNMENT NEW_LINE TAB ASSIGNMENT NEW_LINE NEW_LINE TAB while NEW_LINE NEW_LINE TAB END_FOR 
+
+	| FOR_COMMAND NEW_LINE TAB print NEW_LINE END_FOR
+
+	| FOR_COMMAND NEW_LINE TAB ASSIGNMENT print NEW_LINE END_FOR
+	
+	| FOR_COMMAND NEW_LINE TAB ASSIGNMENT NEW_LINE TAB ASSIGNMENT print NEW_LINE END_FOR
+	
+	| FOR_COMMAND NEW_LINE TAB ASSIGNMENT NEW_LINE TAB ASSIGNMENT NEW_LINE TAB ASSIGNMENT print NEW_LINE END_FOR
+	
+	| FOR_COMMAND NEW_LINE TAB  for NEW_LINE print NEW_LINE  END_FOR
+	
+	| FOR_COMMAND NEW_LINE TAB while NEW_LINE print NEW_LINE END_FOR
+	
+	| FOR_COMMAND NEW_LINE TAB for NEW_LINE END_FOR
+
+	| FOR_COMMAND NEW_LINE TAB while NEW_LINE END_FOR
+	
+	| FOR_COMMAND NEW_LINE TAB TAB print NEW_LINE TAB END_FOR
+
+	| FOR_COMMAND NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB print NEW_LINE  TAB END_FOR
+	
+	| FOR_COMMAND NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB print NEW_LINE  TAB END_FOR
+
+	| FOR_COMMAND NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB print NEW_LINE TAB END_FOR 
+	
+	
 ;	
 
 
@@ -222,7 +267,7 @@ while:
 
 	|WHILE_COMMAND NEW_LINE TAB ASSIGNMENT NEW_LINE TAB END_WHILE
 
-	|WHILE_COMMAND NEW_LINE TAB for NEW_LINE  END_WHILE
+	|WHILE_COMMAND NEW_LINE TAB for NEW_LINE END_WHILE
 	
 	|WHILE_COMMAND NEW_LINE TAB for NEW_LINE TAB END_WHILE
 
@@ -251,6 +296,40 @@ while:
 	|WHILE_COMMAND NEW_LINE TAB ASSIGNMENT NEW_LINE TAB ASSIGNMENT NEW_LINE NEW_LINE TAB while NEW_LINE NEW_LINE TAB  END_WHILE
 	
 	|WHILE_COMMAND NEW_LINE TAB ASSIGNMENT NEW_LINE TAB ASSIGNMENT NEW_LINE TAB ASSIGNMENT NEW_LINE NEW_LINE TAB while NEW_LINE NEW_LINE TAB END_WHILE 
+
+	|WHILE_COMMAND NEW_LINE TAB print NEW_LINE END_WHILE
+
+	|WHILE_COMMAND NEW_LINE TAB ASSIGNMENT NEW_LINE TAB print NEW_LINE END_WHILE
+	
+	|WHILE_COMMAND NEW_LINE TAB ASSIGNMENT NEW_LINE TAB ASSIGNMENT NEW_LINE TAB print NEW_LINE END_WHILE
+
+	|WHILE_COMMAND NEW_LINE TAB ASSIGNMENT NEW_LINE TAB ASSIGNMENT NEW_LINE TAB ASSIGNMENT NEW_LINE TAB print NEW_LINE END_WHILE
+
+	|WHILE_COMMAND NEW_LINE TAB for NEW_LINE print NEW_LINE END_WHILE
+	
+	|WHILE_COMMAND NEW_LINE TAB while NEW_LINE print NEW_LINE END_WHILE
+
+	|WHILE_COMMAND NEW_LINE TAB TAB print NEW_LINE TAB TAB END_WHILE
+	
+	|WHILE_COMMAND NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB print NEW_LINE TAB TAB END_WHILE
+
+	|WHILE_COMMAND NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB print NEW_LINE TAB TAB END_WHILE
+
+	|WHILE_COMMAND NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB print NEW_LINE TAB TAB END_WHILE 
+
+	|WHILE_COMMAND NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB END_WHILE
+	
+	|WHILE_COMMAND NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB END_WHILE
+	
+	|WHILE_COMMAND NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB END_WHILE 
+	
+	|WHILE_COMMAND NEW_LINE ASSIGNMENT NEW_LINE TAB for NEW_LINE END_WHILE
+
+	|WHILE_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE TAB for NEW_LINE END_WHILE
+
+	|WHILE_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE TAB for NEW_LINE END_WHILE
+
+	
 ;	
 
 switch:
@@ -336,61 +415,63 @@ default:
 	|DEFAULT NEW_LINE TAB ASSIGNMENT NEW_LINE TAB ASSIGNMENT NEW_LINE TAB ASSIGNMENT NEW_LINE TAB while NEW_LINE
 	
 ;
-IF:
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE_IF NEW_LINE ASSIGNMENT NEW_LINE ELSE_IF NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT NEW_LINE END_IF
-
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE_IF NEW_LINE ASSIGNMENT NEW_LINE ELSE_IF NEW_LINE ASSIGNMENT ELSE NEW_LINE ASSIGNMENT NEW_LINE END_IF
-
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE_IF NEW_LINE ASSIGNMENT NEW_LINE ELSE NEW_LINE ASSIGNMENT NEW_LINE END_IF
-
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE NEW_LINE ASSIGNMENT NEW_LINE END_IF
-
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE END_IF
-
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE_IF NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT NEW_LINE END_IF
-
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE_IF NEW_LINE ASSIGNMENT NEW_LINE END_IF
-
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE_IF NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT END_IF
-
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE for NEW_LINE NEW_LINE END_IF
 
 
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE while NEW_LINE NEW_LINE END_IF
+if:
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT END_IF
+
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT ELSE NEW_LINE ASSIGNMENT END_IF
+
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT ELSE NEW_LINE ASSIGNMENT END_IF
+
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE NEW_LINE ASSIGNMENT END_IF
+
+      | IF_COMMAND NEW_LINE ASSIGNMENT END_IF
+
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT END_IF
+
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT END_IF
+
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT END_IF
+
+      | IF_COMMAND NEW_LINE ASSIGNMENT for NEW_LINE NEW_LINE END_IF
 
 
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE switch NEW_LINE NEW_LINE END_IF
+      | IF_COMMAND NEW_LINE ASSIGNMENT while NEW_LINE NEW_LINE END_IF
 
 
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE_IF NEW_LINE for NEW_LINE END_IF
+      | IF_COMMAND NEW_LINE ASSIGNMENT switch NEW_LINE NEW_LINE END_IF
 
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE_IF NEW_LINE while NEW_LINE END_IF
 
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE_IF NEW_LINE switch NEW_LINE END_IF 
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE for NEW_LINE END_IF
 
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE NEW_LINE for NEW_LINE END_IF
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE while NEW_LINE END_IF
 
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE NEW_LINE switch NEW_LINE END_IF 
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE switch NEW_LINE END_IF 
 
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE NEW_LINE while NEW_LINE END_IF 
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE NEW_LINE for NEW_LINE END_IF
 
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE_IF NEW_LINE for NEW_LINE  ELSE NEW_LINE ASSIGNMENT NEW_LINE END_IF 
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE NEW_LINE switch NEW_LINE END_IF 
 
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE_IF NEW_LINE while NEW_LINE ELSE NEW_LINE ASSIGNMENT NEW_LINE END_IF
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE NEW_LINE while NEW_LINE END_IF 
 
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE_IF NEW_LINE switch NEW_LINE ELSE NEW_LINE ASSIGNMENT NEW_LINE END_IF
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE for NEW_LINE  ELSE NEW_LINE ASSIGNMENT END_IF 
 
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE_IF NEW_LINE ASSIGNMENT NEW_LINE ELSE NEW_LINE while NEW_LINE END_IF
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE while NEW_LINE ELSE NEW_LINE ASSIGNMENT END_IF
 
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE_IF NEW_LINE ASSIGNMENT NEW_LINE ELSE NEW_LINE switch NEW_LINE END_IF
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE switch NEW_LINE ELSE NEW_LINE ASSIGNMENT END_IF
 
-      | IF_COMMAND NEW_LINE ASSIGNMENT NEW_LINE ELSE_IF NEW_LINE ASSIGNMENT NEW_LINE ELSE NEW_LINE for NEW_LINE END_IF
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT ELSE NEW_LINE while NEW_LINE END_IF
+
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT ELSE NEW_LINE switch NEW_LINE END_IF
+
+      | IF_COMMAND NEW_LINE ASSIGNMENT ELSE_IF NEW_LINE ASSIGNMENT ELSE NEW_LINE for NEW_LINE END_IF
 ;
 	
 
 print:
 
-	PRINT_COMMAND NEW_LINE
+	PRINT_COMMAND 
 	
 
 ;
@@ -398,21 +479,77 @@ print:
 
 declarations_char:
 
-	 VARS_CHAR STRING  
+	 VARS_CHAR STRING
+	{
+	    count_varschar++;
+
+	    if(count_varschar==1)
+	    {
+	      c_vars = (char*)malloc(count_varschar*sizeof(char));
+	      strcpy(c_vars,$2);
+	    }
+
+	   else
+	   {
+	     c_vars = (char*)realloc(c_vars,count_varschar*sizeof(char));
+	     strcat(c_vars,$2);
+		
+	   }
+	
+	}  
 
 ;
 
 
 declarations_int:
 
-	VARS_INTEGER STRING 
+	VARS_INTEGER STRING
+	{
+	  count_varsint++;
+
+            if(count_varsint==1)
+            {
+              i_vars = (char*)malloc(count_varsint*sizeof(char));
+              strcpy(i_vars,$2);
+            }
+
+           else
+           {
+             i_vars = (char*)realloc(i_vars,count_varsint*sizeof(char));
+             strcat(i_vars,$2);
+
+           }
+
+        } 
+
+
+	 
+;
+
+assignments:
+		
+	STRING EQUAL STRING NEW_LINE
+	{
+		
+	}
+
+	|STRING EQUAL STRING PLUS STRING
+
+	|STRING EQUAL STRING MINUS STRING
+
+	|STRING EQUAL STRING MUL STRING
+
+	|STRING EQUAL STRING DIV STRING
+
+	|STRING EQUAL STRING POWER STRING
+	
 ;
 	
 
 struct:
 	STRUCT  NEW_LINE declarations_char NEW_LINE declarations_int NEW_LINE ENDSTRUCT
 	
-	|TYPE_STRUCT STRING NEW_LINE declarations_char NEW_LINE declarations_int NEW_LINE STRING ENDSTRUCT
+	|TYPE_STRUCT STRING NEW_LINE declarations_char NEW_LINE declarations_int NEW_LINE END_T_STRUCT NEW_LINE
 
 ;
 
@@ -426,57 +563,129 @@ int yyerror(char *s)
 	return 0;
 }
 
-void  check_var_names(char* str1,int len1,char* str2,int len2)
+void  check_var_names(char* str1,char* str2)
 {
-    char* name1=str1;
-    char* name2=str2;
+    char c_vars1[100];
+    char i_vars1[100];
     int k=0;
-    char* token1;
-    char* token2;
+    int i=0;
     int flag=0;
-    const char coma[2] = ",";
-     
- 		
-        for(int i=8; i<len1-1; i++)
-	{    
-	     
-	     name1[k]=str1[i];
-	     k++;
-	}
+    int len1 = strlen(str1);
+    int len2 = strlen(str2); 
+    char* coma1 = NULL;
+    char* coma2 = NULL;    
+		
+   printf("%s\t%s",str1,str2);
+   printf("%d\t%d",len1,len2);
 
-	name1[k]='\0';
-	
-	k=0;
-	
-        for(int i=11; i<len2-1; i++)
-	{
-	  
-	     name2[k] = str2[i];
-	     k++;
-	}
-	
-	name2[k]='\0';
+      coma1 = strchr(str1, ',');
+      coma2 = strchr(str2, ',');
 
-	printf("%s\t%s\n",name1,name2);
-	printf("%d\t%d\n",strlen(name1),strlen(name2));
-
-	token1 = strtok(name1,coma);
-	token2 = strtok(name2,coma);
-
-	while( (token2!=NULL) )
-		{  
-	           //printf("%s\n",token1);
-	           printf("%s\n",token2);	 
-               
-                   //token1 = strtok(NULL,coma);
-	           token2 = strtok(NULL,coma);	     
-				    
+	if(coma1==NULL && coma2==NULL)
+		{
+			flag = strcmp(str1,str2);
+			if(flag==0)
+				{
+				    printf("\nSame name different type");	
+				    exit(0);
+				}
+			else
+			   {
+				return;
+			   }
 		}
 
+	else if(coma1==NULL && coma2!=NULL)
+	{
 	
+	  while(1)
+           {
 
-  
- 
+             if(str2[k]!=',')
+                {
+                   i_vars[k] = str2[k];
+                   k++;
+                }
+
+
+             if(str2[k]==',' || str2[k]==';')
+                {
+                    flag = strcmp(str1,i_vars1);
+                    if(flag==0)
+                        {
+                            printf("\nDifferent types same name");
+                            exit(-1);
+                        }
+                }
+
+	    if(str2[k]==len2)
+		break;
+          }
+			
+	}
+
+	else if(coma1!=NULL && coma2==NULL)
+	{
+	    while(1)
+            {
+              if(str1[i]!=',' && i<len1)
+                {
+                        c_vars1[i] = str1[i];
+                        i++;
+                }
+
+             if(str1[i]==',')
+                {
+                    flag = strcmp(c_vars1,str2);
+                    if(flag==0)
+                        {
+                            printf("\nDifferent types same name");
+                            exit(-1);
+                        }
+                }
+
+	    if(i==len1-1)
+		break;
+
+	    }		
+	}
+
+	else
+	{
+		
+         while(1)
+	 {     
+	     if(str1[i]!=',' && i<len1)
+		{
+			c_vars1[i] = str1[i];
+			i++;
+		}	
+
+	     if(str2[k]!=',' && k<len2)
+                {
+                   i_vars[k] = str2[k];
+                   k++;
+                }
+
+
+	     if(str1[i]==',' && str2[k]==',')
+		{		
+	            flag = strcmp(c_vars1,i_vars1);
+	            if(flag==0)
+			{
+		            printf("\nDifferent types same name");
+			    exit(-1);
+			}
+		}
+
+	    
+
+            if( (i==len1-1) && (k==len2-1) )
+	          break;
+	     
+	 } 
+
+	} 
 }	
 
 
@@ -492,4 +701,5 @@ yyparse();
 return 0;
 
 }
+
 
