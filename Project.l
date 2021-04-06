@@ -1,3 +1,4 @@
+
 %{
 #include <stdio.h>
 #include <string.h>
@@ -9,7 +10,7 @@ char* get_string_no_space(char *str,int len);
 
 
 numbers [0-9]+
-text  (" ")*[a-z][a-z0-9]*(("("([a-z][a-z0-9]*("["[0-9]*"]")*",")*")")|(","[a-z][a-z0-9]*("["[0-9]*"]")*)*)*(";")*
+text  (" ")*[a-z][a-z0-9]*(("("([a-z][a-z0-9]*("["[0-9]*"]")*",")*")")|((","*[a-z][a-z0-9]*)*("["[0-9]*"]")*))*(";")*
 text2 (" ")*[a-z]([a-z0-9])*
 new_line [\n]
 tab      [\t]
@@ -25,8 +26,8 @@ assignment        [a-z][a-z0-9]*(" ")*"="(" ")*(([a-z][a-z0-9]*)|("\""([a-z0-9A-
 condition         "("(([a-z][a-z0-9]*)|[0-9]+)("<"|">"|"!="|"=="|"AND"|"OR")([a-z][a-z0-9]*)|([0-9]+))")"
 for_command        "FOR"(" ")*([a-z][a-z0-9]*)(" ")*(":="(([0-9]+)|([a-z][a-z0-9]*)))*(" ")*"TO"(" ")*(([0-9]+)|([a-z][a-z0-9]*))(" ")*"STEP"(" ")*(([0-9]+)|([a-z][a-z0-9]*))
 while_command      "WHILE""("(([a-z][a-z0-9]*)|([0-9]+))("<"|">"|"!="|"=="|"AND"|"OR")(([a-z][a-z0-9]*)|([0-9]+))")"
-if_command         "IF"(" ")*[condition](" ")*"THEN"
-elseif_command     "ELSEIF"(" ")*[condition]
+if_command         "IF"(" ")*"("(([a-z][a-z0-9]*)|[0-9]+)("<"|">"|"!="|"=="|"AND"|"OR")([a-z][a-z0-9]*)|([0-9]+))")"(" ")*"THEN"
+elseif_command     "ELSEIF"(" ")*"("(([a-z][a-z0-9]*)|[0-9]+)("<"|">"|"!="|"=="|"AND"|"OR")([a-z][a-z0-9]*)|([0-9]+))")"(" ")*"THEN"
 switch_command     "SWITCH""("(([a-z][a-z0-9]*)|([0-9]+))(("+"|"-"|"/"|"*"|"^")(([a-z][a-z0-9]*)|([0-9]+)|([a-z][a-z0-9]*"("(([a-z][a-z0-9]*("[""]")*)|([0-9]+)(",")*)*")")))*")"
 case_command       "CASE""("(([a-z][a-z0-9]*)|([0-9]+))(("+"|"-"|"/"|"*"|"^")(([a-z][a-z0-9]*)|([0-9]+)|([a-z][a-z0-9]*"("(([a-z][a-z0-9]*("[""]")*)|([0-9]+)(",")*)*")")))*")"":"
 default_command    "DEFAULT"":" 
@@ -34,7 +35,7 @@ print_command      "PRINT""(""''"(" ")*[a-z][a-z0-9]*(("("([a-z][a-z0-9]*("["[0-
 break_command      "BREAK;"
 struct             "STRUCT"(" ")*[a-z][a-z0-9]*
 type_struct 	   "TYPEDEF"" ""STRUCT"
-end_t_struct       [a-z][a-z0-9]*" ""ENDSTRUCT"
+end_t_struct       [a-z][a-z0-9]*(" ")*"ENDSTRUCT"
    
 
 %%
@@ -71,7 +72,14 @@ end_t_struct       [a-z][a-z0-9]*" ""ENDSTRUCT"
 "ENDMAIN"           {return(ENDMAIN);}
 {struct}	    {return(STRUCT);}
 {type_struct} 	    {return(TYPE_STRUCT);}
-"ENDSTRUCT"         {return(ENDSTRUCT);}	
+"ENDSTRUCT"         {return(ENDSTRUCT);}
+{end_t_struct}	    {return(END_T_STRUCT);}
+"="		    {return(EQUAL);}
+"+"		    {return(PLUS);}
+"-"		    {return(MINUS);}
+"*"		    {return(MUL);}
+"/"		    {return(DIV);}
+"^"		    {return(POWER);}
 .                   {showError();return(OTHER);}
 
 %%
