@@ -123,7 +123,406 @@ program:
 		{
 			check_var_names(c_vars,i_vars);
 		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ENDMAIN
+		{
+			printf("\nRight assignment program");
+		} 
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight for program");
+		} 	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight while program");
+		} 		
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight print program");
+		} 
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight if program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight switch program");
+		} 
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight assignment for program");
+		} 
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight assignment while program");
+		} 	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight assignment switch program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight assignment print program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight assignment if program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE ENDMAIN
+		{
+			printf("\nRight assignment assignment program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight assignment assignment for program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight assignment assignment while program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight assignment assignment if program");
+		}						 			
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight assignment assignment print program");
+
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight assignment assignment switch program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE ENDMAIN
+		{
+			printf("\nRight assignment assignment assignment program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight assignment assignment assignment for program");
+		}		
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight assignment assignment assignment while program");
+
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight assignment assignment assignment if program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight assignment assignment assignment print program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight assignment assignment assignment switch program");
+		}
+			
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE for NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight for while program");
+		} 	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE for NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight for if program");
+		} 		
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE for NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight for while program");
+		} 
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE for NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight for switch program");
+		} 		
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE for NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight for for program");
+		} 		
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE while NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight while while program");
+		} 
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE while NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight while for program");
+		} 	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE while NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight while if program");
+		} 	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE while NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight while print program");
+		} 	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE while NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight while switch program");
+		} 		
 		
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE if NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight if if program");
+		} 		
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE if NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight if for program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE if NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight if while program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE if NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight if print program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE if NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight if switch program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE print NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight print print program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE print NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight print for program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE print NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight print while program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE print NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight print if program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE print NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight print switch program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE switch NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight switch switch program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE switch NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight switch for program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE switch NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight switch while program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE switch NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight switch if program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE switch NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight switch print program");
+		}
+
+        | PROGRAM STRING NEW_LINE STARTMAIN  NEW_LINE ASSIGNMENT NEW_LINE for NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight for while program");
+		} 	
+	| PROGRAM STRING NEW_LINE STARTMAIN  NEW_LINE ASSIGNMENT NEW_LINE for NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight for if program");
+		} 		
+	| PROGRAM STRING NEW_LINE STARTMAIN  NEW_LINE ASSIGNMENT NEW_LINE for NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight for while program");
+		} 
+	| PROGRAM STRING NEW_LINE STARTMAIN  NEW_LINE ASSIGNMENT NEW_LINE for NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight for switch program");
+		} 		
+	| PROGRAM STRING NEW_LINE STARTMAIN  NEW_LINE ASSIGNMENT NEW_LINE for NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight for for program");
+		} 		
+	| PROGRAM STRING NEW_LINE STARTMAIN  NEW_LINE ASSIGNMENT NEW_LINE while NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight while while program");
+		} 
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE while NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight while for program");
+		} 	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE while NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight while if program");
+		} 	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE while NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight while print program");
+		} 	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE while NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight while switch program");
+		} 		
+		
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE if NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight if if program");
+		} 		
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE if NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight if for program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE if NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight if while program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE if NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight if print program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE if NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight if switch program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE print NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight print print program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE print NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight print for program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE print NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight print while program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE print NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight print if program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE print NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight print switch program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE switch NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight switch switch program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE switch NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight switch for program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE switch NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight switch while program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE switch NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight switch if program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE switch NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight switch print program");
+		}
+
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE for NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight for while program");
+		} 	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT  NEW_LINE ASSIGNMENT NEW_LINE for NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight for if program");
+		} 		
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT  NEW_LINE ASSIGNMENT NEW_LINE for NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight for while program");
+		} 
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT  NEW_LINE ASSIGNMENT NEW_LINE for NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight for switch program");
+		} 		
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT  NEW_LINE ASSIGNMENT NEW_LINE for NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight for for program");
+		} 		
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT  NEW_LINE ASSIGNMENT NEW_LINE while NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight while while program");
+		} 
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE while NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight while for program");
+		} 	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE while NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight while if program");
+		} 	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE while NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight while print program");
+		} 	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE while NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight while switch program");
+		} 		
+		
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE if NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight if if program");
+		} 		
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE if NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight if for program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE if NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight if while program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE if NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight if print program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE if NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight if switch program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE print NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight print print program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE print NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight print for program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE print NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight print while program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE print NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight print if program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE print NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight print switch program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE switch NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight switch switch program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE switch NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight switch for program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE switch NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight switch while program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE switch NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight switch if program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE switch NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight switch print program");
+		}		
 
 ;		
 
