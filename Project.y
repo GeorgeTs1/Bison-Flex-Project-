@@ -522,7 +522,237 @@ program:
 	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE switch NEW_LINE print NEW_LINE ENDMAIN
 		{
 			printf("\nRight switch print program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE ENDMAIN
+		{
+			printf("\nRight function program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct program");
 		}		
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE struct NEW_LINE ENDMAIN
+		{
+			printf("\nRight function struct program");
+		}			
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE function NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct function program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function program");
+		}				
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE struct NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct struct program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE struct NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function struct program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE struct NEW_LINE struct NEW_LINE ENDMAIN
+		{
+			printf("\nRight function struct struct program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE struct NEW_LINE struct NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function struct struct program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE struct NEW_LINE for NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight function struct for while program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE for NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function for while program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE struct NEW_LINE for NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct struct for while program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE struct NEW_LINE for NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight function struct for print program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE for NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function for print program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE struct NEW_LINE for NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct struct for print program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE struct NEW_LINE while NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight function struct while print program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE while NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function while print program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE struct NEW_LINE while NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct struct while print program");
+		}		
+
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE struct NEW_LINE for NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight function struct for print program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE for NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function for print program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE struct NEW_LINE for NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct struct for print program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE struct NEW_LINE for NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight function struct for if program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE for NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function for if program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE struct NEW_LINE for NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct struct for if program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE struct NEW_LINE while NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight function struct while print program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE while NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function while print program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE struct NEW_LINE while NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct struct while print program");
+		}		
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE struct NEW_LINE print NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight function struct print print program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE print NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function print print program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE struct NEW_LINE print NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct struct print print program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE struct NEW_LINE for NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight function struct for switch program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE for NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function for switch program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE struct NEW_LINE for NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct struct for switch program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE struct NEW_LINE while NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight function struct while switch program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE while NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function while switch program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE struct NEW_LINE while NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct struct while switch program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE struct NEW_LINE if NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight function struct if switch program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE if NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function if switch program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE struct NEW_LINE if NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct struct if switch program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE struct NEW_LINE print NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight function struct print switch program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE print NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function print switch program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE struct NEW_LINE print NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct struct print switch program");
+		}
+
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE struct NEW_LINE for NEW_LINE  ENDMAIN
+		{
+			printf("\nRight function struct for  program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function for  program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE struct NEW_LINE for NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct struct for  program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE struct NEW_LINE while NEW_LINE  ENDMAIN
+		{
+			printf("\nRight function struct while  program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function while  program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE struct NEW_LINE while NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct struct while  program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE struct NEW_LINE if NEW_LINE  ENDMAIN
+		{
+			printf("\nRight function struct if  program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function if  program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE struct NEW_LINE if NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct struct if  program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE struct NEW_LINE print NEW_LINE  ENDMAIN
+		{
+			printf("\nRight function struct print  program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function print  program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE struct NEW_LINE print NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct struct print  program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE struct NEW_LINE switch NEW_LINE  ENDMAIN
+		{
+			printf("\nRight function struct switch  program");
+		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE function NEW_LINE function NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight function function switch  program");
+		}	
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE struct NEW_LINE struct NEW_LINE switch NEW_LINE ENDMAIN
+		{
+			printf("\nRight struct struct switch  program");
+		}					
 
 ;		
 
