@@ -7,7 +7,7 @@ int linenum = 1;
 char* get_string_no_space(char *str,int len);
 %}
 
-
+%x ML_COMMENT 
 numbers (([0-9]+)(";")*)
 text  (" ")*[a-z][a-z0-9]*(("("([a-z][a-z0-9]*("["(([0-9]+)|([a-z]*))"]")*",")*")")|((","*[a-z][a-z0-9]*)*("["(([0-9]+)|([a-z]*))"]")*)|(","))*(";")*
 struct_text "''"(([a-z][a-z0-9]*)|([0-9]+))"''"";"
@@ -35,10 +35,12 @@ break_command      "BREAK;"
 struct             "STRUCT"(" ")*[a-z][a-z0-9]*
 type_struct 	   "TYPEDEF"" ""STRUCT"
 end_t_struct       [a-z][a-z0-9]*(" ")*"ENDSTRUCT"
-   
+ 
 
 %%
-
+<INITIAL>"/*"                   BEGIN(ML_COMMENT);
+<ML_COMMENT>"*/"                BEGIN(INITIAL);
+<ML_COMMENT>.|"\n"              { }
 "PROGRAM"           {return(PROGRAM);}
 {text}              {sscanf(yytext, "%s", yylval.variables);return(STRING);}
 {struct_text}	    {sscanf(yytext,"%s",yylval.variables);return(STRING2);}
