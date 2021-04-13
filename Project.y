@@ -21,7 +21,7 @@ char* i_vars;
 %token TAB SPACE VARS_CHAR VARS_INTEGER SEMICOLON STRING2
 %token STRUCT ENDSTRUCT TYPE_STRUCT END_T_STRUCT
 %token PLUS MINUS MUL DIV POWER EQUAL L_PAR R_PAR 
-%token RETURN 
+%token RETURN DOT NUMBERS STRING2
 
 %type <prog_name>    STRING
 %type <variables>    STRING2
@@ -35,6 +35,7 @@ char* i_vars;
 %type <commands>     SWITCH_COMMAND
 %type <commands>     CASE_COMMAND 
 %type <commands>     PRINT_COMMAND		
+%type <nums>	     NUMBERS
 
 %union{
     
@@ -42,7 +43,7 @@ char* i_vars;
     char prog_name[200];
     char variables[200];
     char assignment[150];
-    int number;
+    char nums[150];
     char commands[150];
 	
 }
@@ -82,6 +83,13 @@ program:
 			printf("\nI LOVE FOR");
 		}
 
+	|NUMBERS
+
+		{
+
+			printf("\nNumbers are ok");
+		}
+
 	|while NEW_LINE
 		{
 			printf("\nI LOVE WHILE ALSO");
@@ -109,6 +117,13 @@ program:
 		{
 			printf("\nWorking on assignments");
 
+		}
+
+	| STRING DOT STRING EQUAL NUMBERS NEW_LINE
+
+		{
+
+			printf("\nStruct assignments are ok!");
 		}
 	
 	| OTHER	
@@ -695,7 +710,9 @@ program:
 program_for_func_struct:
 
 	
-	   STARTMAIN NEW_LINE STRING NEW_LINE ENDMAIN
+	|  STARTMAIN NEW_LINE struct_call NEW_LINE struct_assignment NEW_LINE ENDMAIN
+	
+	|  STARTMAIN NEW_LINE STRING NEW_LINE ENDMAIN
 
 	|  STARTMAIN NEW_LINE declarations_char NEW_LINE declarations_int NEW_LINE ASSIGNMENT NEW_LINE ENDMAIN
 		{
@@ -772,7 +789,6 @@ program_for_func_struct:
         |  STARTMAIN NEW_LINE declarations_int  NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE TAB print NEW_LINE ENDMAIN
 
 	
-
 
 	|  STARTMAIN NEW_LINE declarations_char NEW_LINE declarations_int NEW_LINE ASSIGNMENT NEW_LINE TAB if NEW_LINE ENDMAIN
 		{
@@ -1260,7 +1276,7 @@ program_for_func_struct:
 function:
 
 
-	 FUNCTION STRING f_parameters NEW_LINE declarations_char NEW_LINE declarations_int NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE RETURN_VAR NEW_LINE END_FUNCTION NEW_LINE 
+	 FUNCTION STRING f_parameters NEW_LINE TAB TAB  declarations_char NEW_LINE TAB TAB  declarations_int NEW_LINE TAB TAB  ASSIGNMENT NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB RETURN_VAR NEW_LINE TAB END_FUNCTION NEW_LINE 
 		{
 			printf("\nI love you\n");
 		} 
@@ -1408,6 +1424,7 @@ function:
 
 	| FUNCTION STRING f_parameters NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE TAB print NEW_LINE RETURN_VAR NEW_LINE END_FUNCTION NEW_LINE
 
+	| FUNCTION STRING f_parameters NEW_LINE TAB TAB print NEW_LINE TAB TAB  RETURN_VAR NEW_LINE TAB END_FUNCTION
 	 
 	|OTHER      
                 {
@@ -1457,7 +1474,7 @@ for:
 	
 	| FOR_COMMAND NEW_LINE ASSIGNMENT NEW_LINE  ASSIGNMENT NEW_LINE TAB FOR_COMMAND NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB END_FOR NEW_LINE END_FOR
 	
-	|FOR_COMMAND NEW_LINE ASSIGNMENT NEW_LINE  ASSIGNMENT NEW_LINE TAB FOR_COMMAND NEW_LINE TAB END_FOR NEW_LINE END_FOR
+	| FOR_COMMAND NEW_LINE ASSIGNMENT NEW_LINE  ASSIGNMENT NEW_LINE TAB FOR_COMMAND NEW_LINE TAB END_FOR NEW_LINE END_FOR
 
 	| FOR_COMMAND NEW_LINE ASSIGNMENT NEW_LINE TAB FOR_COMMAND NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB TAB ASSIGNMENT NEW_LINE TAB END_FOR NEW_LINE END_FOR
 	
@@ -2023,10 +2040,27 @@ assignments:
 	
 
 struct:
-	STRUCT  NEW_LINE declarations_char NEW_LINE declarations_int NEW_LINE ENDSTRUCT
+	STRUCT NEW_LINE TAB TAB  declarations_char NEW_LINE TAB TAB  declarations_int NEW_LINE TAB  ENDSTRUCT
 	
-	|TYPE_STRUCT STRING NEW_LINE declarations_char NEW_LINE declarations_int NEW_LINE END_T_STRUCT NEW_LINE
+	|TYPE_STRUCT STRING NEW_LINE TAB TAB  declarations_char NEW_LINE TAB TAB  declarations_int NEW_LINE TAB  END_T_STRUCT NEW_LINE
 
+;
+
+struct_call:
+
+	STRING STRING
+	{
+
+	}
+	
+	
+;
+
+
+struct_assignment:
+	
+	STRING DOT STRING EQUAL STRING2 NEW_LINE STRING DOT STRING EQUAL NUMBERS
+	 
 ;
 
 
