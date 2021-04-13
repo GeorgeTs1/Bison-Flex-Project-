@@ -59,7 +59,7 @@ prog:
 
 main:
 
-    program
+    program  
 	{
 		printf("\nProgram is right!");
 	}
@@ -135,10 +135,14 @@ program:
 		{
 			check_var_names(c_vars,i_vars);
 		}
-	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE declarations_char NEW_LINE declarations_int NEW_LINE ASSIGNMENT NEW_LINE ENDMAIN
+	| PROGRAM STRING NEW_LINE NEW_LINE STARTMAIN NEW_LINE NEW_LINE declarations_char NEW_LINE declarations_int NEW_LINE ASSIGNMENT NEW_LINE ENDMAIN
 		{
 			printf("\nRight assignment program");
 		}
+	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE declarations_char NEW_LINE declarations_int NEW_LINE ASSIGNMENT NEW_LINE ENDMAIN
+
+	| PROGRAM STRING NEW_LINE NEW_LINE STARTMAIN NEW_LINE NEW_LINE declarations_char NEW_LINE declarations_int NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE ENDMAIN
+
 	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE declarations_char NEW_LINE declarations_int NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE ENDMAIN
 
 	| PROGRAM STRING NEW_LINE STARTMAIN NEW_LINE declarations_char NEW_LINE declarations_int NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE ASSIGNMENT NEW_LINE ENDMAIN
