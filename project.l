@@ -8,17 +8,17 @@ char* get_string_no_space(char *str,int len);
 %}
 
 
-numbers [0-9]+
+numbers (([0-9]+)(";")*)
 text  (" ")*[a-z][a-z0-9]*(("("([a-z][a-z0-9]*("["(([0-9]+)|([a-z]*))"]")*",")*")")|((","*[a-z][a-z0-9]*)*("["(([0-9]+)|([a-z]*))"]")*)|(","))*(";")*
-text2 (" ")*[a-z]([a-z0-9])*
+struct_text "''"(([a-z][a-z0-9]*)|([0-9]+))"''"";"
 new_line [\n]
 tab      [\t]
 space     " "
-semicolon [\;] 
+semicolon ";"
 vars      "VARS"(" ")*("CHAR"|"INTEGER")(" ")*[a-z][a-z0-9]*("["[0-9]+"]")* 
 declaration_f_par  (" ")*"("("VARS"(" ")*("CHAR"|"INTEGER")(" ")*[a-z][a-z0-9]*("[""]")*(",")*)*")" 
 declaration_f_var  ("VARS"(" ")*("CHAR"|"INTEGER")(" ")*[a-z][a-z0-9]*("["[0-9]+"]")*(","(" ")*[a-z][a-z0-9]*("["[0-9]+"]")*)*";")*
-return_var        "RETURN"(" ")*(([a-z][a-z0-9]*)|([0-9]+))";"
+return_var        "RETURN"(" ")*(([a-z][a-z0-9]*)|([0-9]+))*";"
 function           [a-z][a-z0-9]*"("([a-z][a-z0-9]*(",")*)*")"";"
 expression_var    (([a-z][a-z0-9]*)|([0-9]+))(("+"|"-"|"\"|"*"|"^")(([a-z][a-z0-9]*)|([0-9]+)|([a-z][a-z0-9]*"("([a-z][a-z0-9]*("[""]")*)|([0-9]+)(",")*)*")")))* 
 assignment        [a-z][a-z0-9]*(" ")*"="(" ")*(([a-z][a-z0-9]*)|("\""([a-z0-9A-Z" "])*"\"")|([0-9]+([a-z])*)|([a-z][a-z0-9]*"("([a-z][a-z0-9]*("["[0-9]+"]")*(",")*)*")"))(" ")*(("+"|"-"|"/"|"*"|"^")(" ")*(([a-z][a-z0-9]*)|([0-9]+([a-z])*)|([a-z][a-z0-9]*"("([a-z][a-z0-9]*("[]")*(",")*)*")")))*";"
@@ -41,6 +41,8 @@ end_t_struct       [a-z][a-z0-9]*(" ")*"ENDSTRUCT"
 
 "PROGRAM"           {return(PROGRAM);}
 {text}              {sscanf(yytext, "%s", yylval.variables);return(STRING);}
+{struct_text}	    {sscanf(yytext,"%s",yylval.variables);return(STRING2);}
+{numbers}	    {sscanf(yytext,"%s",yylval.nums);return(NUMBERS);}
 {new_line}          {linenum++; return(NEW_LINE);}
 {tab}		    {return(TAB);}
 {semicolon}	    {return(SEMICOLON);}
@@ -82,6 +84,7 @@ end_t_struct       [a-z][a-z0-9]*(" ")*"ENDSTRUCT"
 "("		    {return(L_PAR);}
 ")"		    {return(R_PAR);}
 "RETURN"	    {return(RETURN);}
+"."                 {return(DOT);}
 .                   {showError();return(OTHER);}
 
 %%
