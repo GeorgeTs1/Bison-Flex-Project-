@@ -8,31 +8,27 @@ char* get_string_no_space(char *str,int len);
 %}
 
 %x ML_COMMENT 
-numbers (([0-9]+)(";")*)
+numbers (([0-9]+)(";"))
 text  (" ")*[a-z][a-z0-9]*(("("([a-z][a-z0-9]*("["(([0-9]+)|([a-z]*))"]")*",")*")")|((","*[a-z][a-z0-9]*)*("["(([0-9]+)|([a-z]*))"]")*)|(","))*(";")*
-struct_text "''"(([a-z][a-z0-9]*)|([0-9]+))"''"";"
+struct_assignment [a-z][a-z0-9]*"."[a-z][a-z0-9]*"="(([a-z][a-z0-9]*)|("\""([a-z0-9A-Z" "])*"\"")|([0-9]+([a-z])*)|([a-z][a-z0-9]*"("([a-z][a-z0-9]*("["[0-9]+"]")*(",")*)*(" ")*")"))(" ")*(("+"|"-"|"/"|"*"|"^")(" ")*(([a-z][a-z0-9]*)|([0-9]+([a-z])*)|([a-z][a-z0-9]*"("([a-z][a-z0-9]*("[]")*(",")*)*")")))*";"
 new_line [\n]
 tab      [\t]
 space     " "
-semicolon ";"
-vars      "VARS"(" ")*("CHAR"|"INTEGER")(" ")*[a-z][a-z0-9]*("["[0-9]+"]")* 
-declaration_f_par  (" ")*"("("VARS"(" ")*("CHAR"|"INTEGER")(" ")*[a-z][a-z0-9]*("[""]")*(",")*)*")" 
-declaration_f_var  ("VARS"(" ")*("CHAR"|"INTEGER")(" ")*[a-z][a-z0-9]*("["[0-9]+"]")*(","(" ")*[a-z][a-z0-9]*("["[0-9]+"]")*)*";")*
-return_var        "RETURN"(" ")*(([a-z][a-z0-9]*)|([0-9]+))*";"
+return_var         "RETURN"("_")?(([a-z][a-z0-9]*)|("\""[a-z][a-z0-9]*"\"")|([0-9]+))";"
 function           [a-z][a-z0-9]*"("([a-z][a-z0-9]*(",")*)*")"";"
 expression_var    (([a-z][a-z0-9]*)|([0-9]+))(("+"|"-"|"\"|"*"|"^")(([a-z][a-z0-9]*)|([0-9]+)|([a-z][a-z0-9]*"("([a-z][a-z0-9]*("[""]")*)|([0-9]+)(",")*)*")")))* 
-assignment        [a-z][a-z0-9]*(" ")*"="(" ")*(([a-z][a-z0-9]*)|("\""([a-z0-9A-Z" "])*"\"")|([0-9]+([a-z])*)|([a-z][a-z0-9]*"("([a-z][a-z0-9]*("["[0-9]+"]")*(",")*)*")"))(" ")*(("+"|"-"|"/"|"*"|"^")(" ")*(([a-z][a-z0-9]*)|([0-9]+([a-z])*)|([a-z][a-z0-9]*"("([a-z][a-z0-9]*("[]")*(",")*)*")")))*";"
+assignment         [a-z][a-z0-9]*("["(([a-z][a-z0-9]*)|([0-9]+))"]")*(" ")*"="(" ")*(([a-z][a-z0-9]*)|("\""([a-z0-9A-Z" "])*"\"")|([0-9]+([a-z])*)|([a-z][a-z0-9]*"("([a-z][a-z0-9]*("["[0-9]+"]")*(",")*)*(" ")*")"))(" ")*(("+"|"-"|"/"|"*"|"^")(" ")*(([a-z][a-z0-9]*)|([0-9]+([a-z])*)|([a-z][a-z0-9]*"("([a-z][a-z0-9]*("[]")*(",")*)*")")))*";"
 condition         "("(([a-z][a-z0-9]*)|[0-9]+)("<"|">"|"!="|"=="|"AND"|"OR")([a-z][a-z0-9]*)|([0-9]+)|("''"[a-z][a-z0-9]*"''"))")"
 for_command        "FOR"(" ")*([a-z][a-z0-9]*)(" ")*(":="(([0-9]+)|([a-z][a-z0-9]*)))*(" ")*"TO"(" ")*(([0-9]+)|([a-z][a-z0-9]*))(" ")*"STEP"(" ")*(([0-9]+)|([a-z][a-z0-9]*))
 while_command      "WHILE""("(([a-z][a-z0-9]*)|([0-9]+))("<"|">"|"!="|"=="|"AND"|"OR")(([a-z][a-z0-9]*)|([0-9]+))")"
 if_command         "IF"(" ")*"("(([a-z][a-z0-9]*)|([0-9]+))(("<"|">"|"!="|"=="|"AND"|"OR")(([a-z][a-z0-9]*)|([0-9]+)))*")"(" ")*"THEN"
 elseif_command     "ELSEIF"(" ")*"("(([a-z][a-z0-9]*)|([0-9]+))(("<"|">"|"!="|"=="|"AND"|"OR")(([a-z][a-z0-9]*)|([0-9]+)))*")"(" ")*"THEN"
 switch_command     "SWITCH""("(([a-z][a-z0-9]*)|([0-9]+)|("''"[a-z][a-z0-9]*"''"))(("+"|"-"|"/"|"*"|"^")(([a-z][a-z0-9]*)|([0-9]+)|([a-z][a-z0-9]*"("(([a-z][a-z0-9]*("[""]")*)|([0-9]+)(",")*)*")")))*")"
-case_command       "CASE""("(([a-z][a-z0-9]*)|([0-9]+)|("''"[a-z][a-z0-9]*"''"))(("+"|"-"|"/"|"*"|"^")(([a-z][a-z0-9]*)|([0-9]+)|([a-z][a-z0-9]*"("(([a-z][a-z0-9]*("[""]")*)|([0-9]+)(",")*)*")")))*")"":"
+case_command       "CASE""("(([a-z][a-z0-9]*)|([0-9]+)|("\""[a-z][a-z0-9]*"\""))(("+"|"-"|"/"|"*"|"^")(([a-z][a-z0-9]*)|([0-9]+)|([a-z][a-z0-9]*"("(([a-z][a-z0-9]*("[""]")*)|([0-9]+)(",")*)*")")))*")"":"
 default_command    "DEFAULT"":" 
-print_command      "PRINT""(""''"(" ")*[a-z][a-z0-9]*(("("([a-z][a-z0-9]*("["(([0-9]+)|([a-z][a-z0-9]*))"]")*(",")*)*")")|(","[a-z][a-z0-9]*("["(([0-9]+)|([a-z][a-z0-9]*))"]")*)|((" ")*[a-z][a-z0-9]*)|("["(([0-9]+)|([a-z][a-z0-9]*))"]")*)*(";")*"''"("["[a-z][a-z0-9]*((","[a-z][a-z0-9]*)|("["(([0-9]+)|([a-z][a-z0-9]*))"]"))*"]")*")"";"
+print_command      "PRINT""(""\""(" ")*[a-z][a-z0-9]*(("("([a-z][a-z0-9]*("["(([0-9]+)|([a-z][a-z0-9]*))"]")*(",")*)*")")|(","[a-z][a-z0-9]*("["(([0-9]+)|([a-z][a-z0-9]*))"]")*)|((" ")*[a-z][a-z0-9]*)|("["(([0-9]+)|([a-z][a-z0-9]*))"]")*)*(";")*"\""("["[a-z][a-z0-9]*((","[a-z][a-z0-9]*)|("["(([0-9]+)|([a-z][a-z0-9]*))"]"))*"]")*")"";"
 break_command      "BREAK;"
-struct             "STRUCT"(" ")*[a-z][a-z0-9]*
+struct             "STRUCT"" "
 type_struct 	   "TYPEDEF"" ""STRUCT"
 end_t_struct       [a-z][a-z0-9]*(" ")*"ENDSTRUCT"
  
@@ -40,37 +36,34 @@ end_t_struct       [a-z][a-z0-9]*(" ")*"ENDSTRUCT"
 %%
 <INITIAL>"/*"                   BEGIN(ML_COMMENT);
 <ML_COMMENT>"*/"                BEGIN(INITIAL);
-<ML_COMMENT>.|"\n"              { }
+<ML_COMMENT>.|"\n"              { }	
 "PROGRAM"           {return(PROGRAM);}
 {text}              {sscanf(yytext, "%s", yylval.variables);return(STRING);}
-{struct_text}	    {sscanf(yytext,"%s",yylval.variables);return(STRING2);}
-{numbers}	    {sscanf(yytext,"%s",yylval.nums);return(NUMBERS);}
+{numbers}           {sscanf(yytext,"%s",yylval.variables);return(NUMBERS);}
+{struct_assignment} {sscanf(yytext,"%s",yylval.variables);return(STRUCT_ASSIGNMENT);}
 {new_line}          {linenum++; return(NEW_LINE);}
 {tab}		    {return(TAB);}
-{semicolon}	    {return(SEMICOLON);}
 {space}	            {return(SPACE);}
 "VARS_CHAR "         {return(VARS_CHAR);}		  
 "VARS_INTEGER"	    {return(VARS_INTEGER);}
-"FUNCTION"          {return(FUNCTION);}             
-{declaration_f_par} {sscanf(yytext, "%s", yylval.variables); return(F_PARAMETERS);}
-{declaration_f_var} {sscanf(get_string_no_space(yytext,yyleng), "%s", yylval.prog_name); return(F_DECLARATIONS);}  
-{return_var}	    {return(RETURN_VAR);}
+"FUNCTION"          {return(FUNCTION);}               
+{return_var}	    {sscanf(yytext, "%s", yylval.commands);return(RETURN_VAR);}
 "END_FUNCTION"      {return(END_FUNCTION);}
 "STARTMAIN"         {return(STARTMAIN);}
-{assignment}        {sscanf(yytext, "%s", yylval.assignment); return(ASSIGNMENT);}
-{while_command}	    {return(WHILE_COMMAND);}
+{assignment}        {sscanf(yytext, "%s", yylval.assignment);return(ASSIGNMENT);}
+{while_command}	    {sscanf(yytext, "%s", yylval.commands);return(WHILE_COMMAND);}
 "END_WHILE"         {return(END_WHILE);}
 {for_command}	    {return(FOR_COMMAND);}
 "END_FOR"           {return(END_FOR);}
-{if_command}        {return(IF_COMMAND);}
-{elseif_command}    {return(ELSE_IF);}
+{if_command}        {sscanf(yytext, "%s", yylval.commands);return(IF_COMMAND);}
+{elseif_command}    {sscanf(yytext, "%s", yylval.commands);return(ELSE_IF);}
 "ELSE"	            {return(ELSE);}
 "ENDIF"             {return(END_IF);}
-{switch_command}    {return(SWITCH_COMMAND);}
+{switch_command}    {sscanf(yytext, "%s", yylval.commands);return(SWITCH_COMMAND);}
 {case_command}      {return(CASE_COMMAND);}
-"DEFAULT:"           {return(DEFAULT);}
+"DEFAULT:"          {return(DEFAULT);}
 "ENDSWITCH"         {return(ENDSWITCH);}
-{print_command}     {return(PRINT_COMMAND);}
+{print_command}     {sscanf(yytext, "%s", yylval.commands);return(PRINT_COMMAND);}
 {break_command}	    {return(BREAK_COMMAND);}
 "ENDMAIN"           {return(ENDMAIN);}
 {struct}	    {return(STRUCT);}
@@ -85,9 +78,10 @@ end_t_struct       [a-z][a-z0-9]*(" ")*"ENDSTRUCT"
 "^"		    {return(POWER);}
 "("		    {return(L_PAR);}
 ")"		    {return(R_PAR);}
-"RETURN"	    {return(RETURN);}
 "."                 {return(DOT);}
 .                   {showError();return(OTHER);}
+
+
 
 %%
 
@@ -112,6 +106,7 @@ char* get_string_no_space(char* str,int len)
 	  }
 	
 	}
+
 
 return str1;
 
